@@ -1,8 +1,8 @@
 //**********************************************************
 //Assignment3:
-//UTORID user_name:
+//UTORID user_name: pushpa10
 //
-//Author:
+//Author: Girrshotan Pushparajah
 //
 //
 //Honor Code: I pledge that this program represents my own
