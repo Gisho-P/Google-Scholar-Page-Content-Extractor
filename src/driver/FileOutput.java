@@ -11,6 +11,19 @@
 //*********************************************************
 package driver;
 
-public class FileOutput {
+import java.util.ArrayList;
+
+public class FileOutput extends Output {
+
+  public FileOutput(ArrayList<RawContent> rawContents) {
+    super(rawContents);
+    // TODO Auto-generated constructor stub
+  }
+
+  @Override
+  public void sendOutput() {
+    // TODO Auto-generated method stub
+    
+  }
 
 }
