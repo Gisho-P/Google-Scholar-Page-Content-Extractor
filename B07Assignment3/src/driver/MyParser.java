@@ -29,25 +29,26 @@ public static void main(String[] args) {
      try {
       htmlContent = HTMLExtractor.getHTML(inputFile);
     } catch (Exception e) {
-      System.out.println("malformed URL or cannot open connection to "
+      ConsoleOutput.sendError("malformed URL or cannot open connection to "
           + "given URL");
       return;
     }
      ContentExtractor contExtract = new ContentExtractor(htmlContent);
      htmlContents.add(contExtract.extractAndGetAllContent());
  }
-   if (args.length == 2)
-     // call file output
-     System.out.println("");
-   else
-     // call console output
-     System.out.println("");
- }
+   if (args.length == 2){
+     FileOutput fileOut = new FileOutput(htmlContents);
+     fileOut.sendOutput(args[1]);
+   } else {
+     ConsoleOutput consoleOut = new ConsoleOutput(htmlContents);
+     consoleOut.sendOutput();
+   }
+   }
 }
 
 public static boolean validateArgs(String [] args){
   if(args.length < 0 || args.length > 2){
-    System.out.println("These arguments are invalid, the first argument should"
+    ConsoleOutput.sendError("These arguments are invalid, the first argument should"
         + "be a list of urls seperated by commas,"
         + "and the optional second argument should be a file name");
     return false;
