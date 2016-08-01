@@ -17,13 +17,15 @@ public class ConsoleOutput extends Output {
 
   public ConsoleOutput(ArrayList<RawContent> rawContents) {
     super(rawContents);
-    // TODO Auto-generated constructor stub
   }
 
-  @Override
   public void sendOutput() {
-    // TODO Auto-generated method stub
-    
+    System.out.println(output);
   }
+  
+  public static void sendError(String error){
+    System.out.println(error);
+  }
+
 
 }

@@ -11,19 +11,28 @@
 //*********************************************************
 package driver;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class FileOutput extends Output {
 
   public FileOutput(ArrayList<RawContent> rawContents) {
     super(rawContents);
-    // TODO Auto-generated constructor stub
   }
 
-  @Override
-  public void sendOutput() {
-    // TODO Auto-generated method stub
-    
+  public void sendOutput(String fileName) {
+    PrintWriter filewriter;
+    try {
+      filewriter = new PrintWriter(fileName, "UTF-8");
+      filewriter.println(output);
+      filewriter.close();
+    } catch (FileNotFoundException e) {
+      ConsoleOutput.sendError(fileName + " is not a valid file path");
+    } catch (UnsupportedEncodingException e) {
+      ConsoleOutput.sendError("UTF-8 not supported");
+    }
   }
 
 }
