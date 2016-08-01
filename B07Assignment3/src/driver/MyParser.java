@@ -11,10 +11,7 @@
 //*********************************************************
 package driver;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStreamReader;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,10 +21,39 @@ public class MyParser {
 * @param args
 */
 public static void main(String[] args) {
- DEBUGStarterCode(args);
+ if(validateArgs(args)){
+   String inputFiles[] = args[0].split(",");
+   ArrayList<RawContent> fileContents = new ArrayList<RawContent>();
+   String htmlContent = "";
+   for (String inputFile : inputFiles) {
+     try {
+      htmlContent = HTMLExtractor.getHTML(inputFile);
+    } catch (Exception e) {
+      System.out.println("malformed URL or cannot open connection to "
+          + "given URL");
+      return;
+    }
+     ContentExtractor contExtract = new ContentExtractor(htmlContent);
+     fileContents.add(contExtract.extractAndGetAllContent());
+ }
+   if (args.length == 2)
+     // call file output
+     System.out.println("");
+   else
+     // call console output
+     System.out.println("");
+ }
 }
 
-
+public static boolean validateArgs(String [] args){
+  if(args.length < 0 || args.length > 2){
+    System.out.println("These arguments are invalid, the first argument should"
+        + "be a list of urls seperated by commas,"
+        + "and the optional second argument should be a file name");
+    return false;
+  }
+  return true;
+}
 /*
 * This is a debug/helper method to help you get started. Once you understand
 * how this method is being used, you are free to refactor it, modify it, or
@@ -59,8 +85,7 @@ private static void DEBUGStarterCode(String[] args) {
 */
 private static void DEBUGextractAuthorsName(String googleScholarURL) {
  try {
-   MyParser googleScholarParser = new MyParser();
-   String rawHTMLString = googleScholarParser.getHTML(googleScholarURL);
+   String rawHTMLString = HTMLExtractor.getHTML(googleScholarURL);
 
    String reForAuthorExtraction =
        "<span id=\"cit-name-display\" "
@@ -77,23 +102,4 @@ private static void DEBUGextractAuthorsName(String googleScholarURL) {
  }
 }
 
-
-
-public String getHTML(String urlString) throws Exception {
- // create object to store html source text as it is being collected
- StringBuilder html = new StringBuilder();
- // open connection to given url
- URL url = new File(urlString).toURI().toURL();
- // create BufferedReader to buffer the given url's HTML source
- BufferedReader htmlbr =
-     new BufferedReader(new InputStreamReader(url.openStream()));
- String line;
- // read each line of HTML code and store in StringBuilder
- while ((line = htmlbr.readLine()) != null) {
-   html.append(line);
- }
- htmlbr.close();
- // convert StringBuilder into a String and return it
- return html.toString();
-}
 }
