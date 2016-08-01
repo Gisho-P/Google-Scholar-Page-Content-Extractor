@@ -23,7 +23,7 @@ public class MyParser {
 public static void main(String[] args) {
  if(validateArgs(args)){
    String inputFiles[] = args[0].split(",");
-   ArrayList<RawContent> fileContents = new ArrayList<RawContent>();
+   ArrayList<RawContent> htmlContents = new ArrayList<RawContent>();
    String htmlContent = "";
    for (String inputFile : inputFiles) {
      try {
@@ -34,7 +34,7 @@ public static void main(String[] args) {
       return;
     }
      ContentExtractor contExtract = new ContentExtractor(htmlContent);
-     fileContents.add(contExtract.extractAndGetAllContent());
+     htmlContents.add(contExtract.extractAndGetAllContent());
  }
    if (args.length == 2)
      // call file output

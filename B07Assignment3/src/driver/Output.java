@@ -11,8 +11,16 @@
 //*********************************************************
 package driver;
 
-public interface Output {
+import java.util.ArrayList;
+
+public abstract class Output {
+  public String output;
   
-  public void sendOutput(String output);
+  public Output(ArrayList<RawContent> rawContents){
+    OutputFormatter outFormatter = new OutputFormatter();
+    output = outFormatter.formatAllRawContent(rawContents);
+  }
+  
+  public abstract void sendOutput();
 
 }
