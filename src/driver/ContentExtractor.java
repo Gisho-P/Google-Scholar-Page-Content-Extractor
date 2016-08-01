@@ -71,8 +71,10 @@ public class ContentExtractor {
     ArrayList<String> publications = new ArrayList<String>();
     // Get the first three publications
     for (int i = 0; i < 3; i++){
-      matcherObject.find();
-      publications.add(matcherObject.group(1));
+      if(matcherObject.find())
+        publications.add(matcherObject.group(1));
+      else
+        break;
     }
     content.setPublications(publications);
   }
@@ -85,12 +87,15 @@ public class ContentExtractor {
     Integer totalCitations = 0;
     // Get the first five publications citations
     for (int i = 0; i < 5; i++){
-      matcherObject.find();
+      if(matcherObject.find()){
       String numCitations = matcherObject.group(1).substring(
           matcherObject.group(1).indexOf(">") + 1);
       totalCitations += Integer.parseInt(numCitations);
+      } else {
+        break;
+      }
     }
-    content.setNumOfCitations(totalCitations);
+    content.setTotalPaperCitations(totalCitations);
   }
   
   private void extractCoAuthors(){
