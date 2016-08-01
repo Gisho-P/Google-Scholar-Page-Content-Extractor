@@ -88,8 +88,7 @@ private static void DEBUGextractAuthorsName(String googleScholarURL) {
    String rawHTMLString = HTMLExtractor.getHTML(googleScholarURL);
 
    String reForAuthorExtraction =
-       "<span id=\"cit-name-display\" "
-           + "class=\"cit-in-place-nohover\">(.*?)</span>";
+       "<a class=\"cit-dark-link\"(.*?)/a>";
    Pattern patternObject = Pattern.compile(reForAuthorExtraction);
    Matcher matcherObject = patternObject.matcher(rawHTMLString);
    while (matcherObject.find()) {
