@@ -1,21 +1,33 @@
-//**********************************************************
-//Assignment3:
-//UTORID user_name: pushpa10
+// **********************************************************
+// Assignment3:
+// UTORID user_name: pushpa10
 //
-//Author: Girrshotan Pushparajah
+// Author: Girrshotan Pushparajah
 //
 //
-//Honor Code: I pledge that this program represents my own
-//program code and that I have coded on my own. I received
-//help from no one in designing and debugging my program.
-//*********************************************************
+// Honor Code: I pledge that this program represents my own
+// program code and that I have coded on my own. I received
+// help from no one in designing and debugging my program.
+// *********************************************************
 package driver;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * The Class OutputFormatter deals with formatting the extracted raw HTML
+ * content and storing it in a string.
+ */
 public class OutputFormatter {
-  public String formatOneRawContent(RawContent rContent){
+
+  /**
+   * Formats the content of one RawContent object which contains the raw HTML
+   * content of one HTML google scholar web page.
+   *
+   * @param rContent the extracted raw content of an HTML web page
+   * @return a formatted string of the HTML content
+   */
+  public String formatOneRawContent(RawContent rContent) {
     String formattedContent = "";
     formattedContent += "-------------------------------------------------"
         + "----------------------\n";
@@ -26,8 +38,9 @@ public class OutputFormatter {
     formattedContent += "3. Number of i10-index after 2009:\n";
     formattedContent += "          " + rContent.getI10Index() + "\n";
     formattedContent += "4. Title of the first 3 publications:\n";
+    // Go through each publication and add it's number and name to the string
     Integer pubNumber = 1;
-    for(String publication: rContent.getPublications()){
+    for (String publication : rContent.getPublications()) {
       formattedContent += "          " + pubNumber + "- " + publication + "\n";
       pubNumber++;
     }
@@ -37,19 +50,28 @@ public class OutputFormatter {
     formattedContent += "          " + rContent.getTotalCoAuthors() + "\n";
     return formattedContent;
   }
-  
-  public String formatAllRawContent(ArrayList<RawContent> rContents){
+
+  /**
+   * Formats the raw content of multiple HTML pages including the coAuthors.
+   *
+   * @param rContents the raw contents of multiple HTML pages
+   * @return the string
+   */
+  public String formatAllRawContent(ArrayList<RawContent> rContents) {
     String formattedContent = "";
-    for(RawContent rContent: rContents){
+    // Get the formatted contents of each HTML page
+    for (RawContent rContent : rContents) {
       formattedContent += formatOneRawContent(rContent);
     }
+    // Get the total number of coAuthors for all HTML pages, and print all
+    // of the given coAuthors
     formattedContent += "\n-------------------------------------------------"
         + "----------------------\n";
     formattedContent += "7. Co-Author list sorted (Total: "
-    + RawContent.getCoAuthors().size() + "):\n";
+        + RawContent.getCoAuthors().size() + "):\n";
     ArrayList<String> sortedCoAuthors = RawContent.getCoAuthors();
     Collections.sort(sortedCoAuthors, String.CASE_INSENSITIVE_ORDER);
-    for(String coAuthor: sortedCoAuthors){
+    for (String coAuthor : sortedCoAuthors) {
       formattedContent += coAuthor + "\n";
     }
     return formattedContent;
